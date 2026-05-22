@@ -1,0 +1,30 @@
+# Table 1: Synthetic Dataset Schema and Feature Groups
+
+| Column                      | Type    | Description                                                                   |
+|:----------------------------|:--------|:------------------------------------------------------------------------------|
+| asset_id                    | object  | Unique identifier for the physical asset                                      |
+| site_id                     | object  | Plant/Site identifier (Plant_1 to Plant_6)                                    |
+| asset_type                  | object  | Type of industrial system (Pump, Compressor, etc.)                            |
+| component_type              | object  | Component monitored (Bearing, Seal, Valve, etc.)                              |
+| date                        | object  | Date of simulation record                                                     |
+| age                         | int64   | Asset age in days since installation                                          |
+| operating_hours             | int64   | Cumulative asset operating hours                                              |
+| load_factor                 | float64 | Daily load factor (0.5 to 1.1)                                                |
+| duty_cycle                  | int64   | Daily shift duration (hours per day)                                          |
+| ambient_temp                | float64 | Ambient temperature in °C                                                     |
+| humidity                    | float64 | Relative humidity percentage                                                  |
+| vibration_rms               | float64 | Vibration Root Mean Square (sensor value)                                     |
+| vibration_kurtosis          | float64 | Vibration Kurtosis (sensor value)                                             |
+| acoustic_level              | float64 | Acoustic noise level in dB (sensor value)                                     |
+| motor_current               | float64 | Motor current draw in Amperes (sensor value)                                  |
+| temp_deviation              | float64 | Temperature deviation from ambient in °C (sensor value)                       |
+| pressure_deviation          | float64 | Pressure deviation in bar (sensor value)                                      |
+| flow_rate_deviation         | float64 | Fluid flow rate deviation in m^3/h (sensor value)                             |
+| time_since_last_maintenance | int64   | Days since last maintenance intervention                                      |
+| previous_fault_count        | int64   | Cumulative count of historical asset faults                                   |
+| shift_type                  | object  | Active shift type (Day, Swing, Night)                                         |
+| maintenance_required_7d     | int64   | Predictive binary target (1 if maintenance needed within 7 days, 0 otherwise) |
+| fault_type                  | object  | Multiclass fault type (Normal, Bearing Wear, Seal Leakage, etc.)              |
+| maintenance_priority        | object  | Ordinal priority classification (Normal, Low, Medium, High, Critical)         |
+| remaining_useful_life_bin   | object  | Ordinal remaining useful life bin                                             |
+| technician_report           | object  | Short technician-style text notes (imperfect/noisy, can be NaN)               |

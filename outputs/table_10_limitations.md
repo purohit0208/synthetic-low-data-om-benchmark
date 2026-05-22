@@ -1,0 +1,9 @@
+# Table 10: Limitations and Mitigation Strategies
+
+| Identified Limitation                      | Description                                                                  | Mitigation Strategy                                                          |
+|:-------------------------------------------|:-----------------------------------------------------------------------------|:-----------------------------------------------------------------------------|
+| Purely Synthetic Data Source               | Dataset is simulated and does not use real plant observations.               | Benchmark serves as a method verification protocol prior to deployment.      |
+| Simplified Latent Degradation Dynamics     | Degradation modeled as Markovian process with additive noise/shocks.         | Include stochastic shocks and site scaling parameters to reflect complexity. |
+| Template-Generated Technician Reports      | Text reports constructed from templates rather than natural speech.          | Inject 15% template ambiguity, omission, and misleading report flags.        |
+| Simulated Human-in-the-Loop Thresholds     | Workload reduction assumes immediate human availability and accuracy.        | Run sensitivity analysis on alpha constraint to explore safety envelopes.    |
+| Out-of-Domain Generalization to Real Sites | Performance on real systems may vary due to unmodeled environmental physics. | Publish open generator code for site-specific customization and retraining.  |

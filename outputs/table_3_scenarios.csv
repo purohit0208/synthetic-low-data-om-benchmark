@@ -1,0 +1,5 @@
+Experimental Scenario,Controlled Variable(s),Evaluation Metrics
+Experiment 1: Label Scarcity Learning Curve,"Training label fraction: 1%, 5%, 10%, 25%, 50%, 100%","PR-AUC, ROC-AUC, Brier score, ECE, F1-score"
+Experiment 2: Cross-Site Domain Shift,Held-out plant site for testing: Plant_1 to Plant_6,"Drop in PR-AUC, increase in FNR, calibration drift"
+Experiment 3: Robustness under Sensor & Report Noise,"Sensor noise multiplier (1.0x to 3.0x), feature missingness (0% to 40%), report missingness (0% to 75%), ambiguity level","PR-AUC degradation rate, False Negative Rate (FNR) inflation"
+Experiment 4: Constrained Human-in-the-Loop Routing,"Routing safety constraint limit alpha: 0.01, 0.03, 0.05, 0.10","Auto-clear rate, Workload reduction, Missed Critical Fault Rate"

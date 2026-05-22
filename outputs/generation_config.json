@@ -1,0 +1,26 @@
+{
+  "num_plants": 6,
+  "assets_per_plant": 80,
+  "days": 365,
+  "seed": 42,
+  "start_date": "2025-01-01",
+  "prediction_label": "maintenance_required_7d",
+  "prediction_window_days": 7,
+  "latent_fault_threshold": 0.75,
+  "maintenance_reset_degradation_range": [
+    0.0,
+    0.08
+  ],
+  "base_report_probability": 0.2,
+  "moderate_degradation_report_probability": 0.4,
+  "high_degradation_report_probability": 0.75,
+  "maintenance_report_probability": 0.95,
+  "site_degradation_scales": {
+    "Plant_1": 1.0,
+    "Plant_2": 1.15,
+    "Plant_3": 0.85,
+    "Plant_4": 1.25,
+    "Plant_5": 0.9,
+    "Plant_6": 1.4
+  }
+}

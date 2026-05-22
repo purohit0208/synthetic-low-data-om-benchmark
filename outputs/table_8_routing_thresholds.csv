@@ -1,0 +1,8 @@
+Model,t_low*,t_high*,Validation Workload Reduction,Validation Missed Fault Rate
+lr_struct,0.01,0.02,0.7345,0.04794520547945205
+rf_struct,0.01,0.02,0.8812272727272727,0.025684931506849314
+xgb_struct,0.0,0.01,0.0,0.0
+lr_tfidf,0.0,0.01,0.0,0.0
+lr_minilm,0.0,0.01,0.0,0.0
+fusion_tfidf,0.0,0.01,0.0,0.0
+fusion_minilm,0.0,0.01,0.0,0.0

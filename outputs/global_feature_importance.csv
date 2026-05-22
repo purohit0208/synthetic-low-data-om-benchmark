@@ -1,0 +1,37 @@
+Feature,Importance
+time_since_last_maintenance,5.925971
+age,0.895161
+acoustic_level,0.35439804
+operating_hours,0.34528887
+component_type_Seal,0.2238217
+ambient_temp,0.22268051
+previous_fault_count,0.20680803
+vibration_rms,0.2046312
+site_id_Plant_1,0.19396414
+vibration_kurtosis,0.1610315
+humidity,0.15418322
+component_type_Motor Unit,0.13855186
+motor_current,0.11998785
+temp_deviation,0.11348765
+pressure_deviation,0.108262464
+flow_rate_deviation,0.09840518
+load_factor,0.09508796
+duty_cycle,0.09231062
+asset_type_Pump,0.057880696
+site_id_Plant_2,0.056583848
+asset_type_Conveyor,0.039401647
+asset_type_Compressor,0.039097495
+component_type_Valve,0.03817475
+component_type_Bearing,0.037513822
+site_id_Plant_4,0.03695589
+component_type_Cooling Unit,0.033495557
+asset_type_Gearbox,0.033242032
+asset_type_Motor,0.033090252
+component_type_Belt,0.024399757
+shift_type_Night,0.022885263
+site_id_Plant_5,0.022769451
+site_id_Plant_3,0.020441245
+shift_type_Swing,0.016288733
+component_type_Sensor,0.015263995
+component_type_Pressure Unit,0.011399998
+shift_type_Day,0.009012421

@@ -1,0 +1,42 @@
+# Local Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Local logs and temporary outputs
+*.log
+*.tmp
+tmp/
+temp/
+
+# Model/download caches
+.cache/
+huggingface/
+hf_cache/
+models/
+
+# Literature review materials are local evidence/discovery artifacts.
+# Do not publish Consensus reports, extracted report text, or downloaded papers.
+literature_review/
+
+# Stale or locally generated document exports.
+# Regenerate a DOCX from the corrected Markdown and journal template before release.
+manuscript/*.docx
+manuscript/render_qa_*/
+
+# Simulator internals are useful for local audit but are not model inputs.
+outputs/latent_database.parquet
+
+# Operating system metadata
+Thumbs.db
+.DS_Store
