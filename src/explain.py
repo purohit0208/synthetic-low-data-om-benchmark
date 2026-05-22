@@ -128,3 +128,114 @@ def analyze_local_cases(y_true, y_pred_probs, threshold, X_test, feature_names):
         cases["TN"] = {"index": int(idx), "prob": float(y_pred_probs[idx]), "features": X_test[idx]}
         
     return cases
+
+def get_local_shap_case_artifacts(
+    model,
+    X_test,
+    y_true,
+    y_pred_probs,
+    feature_names,
+    threshold=0.5,
+    output_dir="outputs",
+    prefix="xgb_struct",
+):
+    """
+    Generate local SHAP waterfall-style diagnostics for one TP, FP, FN, and TN case.
+
+    The explanations are computed for the interpretable structured model input,
+    not for dense MiniLM dimensions.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    base_estimator = model
+    if hasattr(model, "estimator"):
+        base_estimator = model.estimator
+    elif hasattr(model, "calibrated_classifiers_") and len(model.calibrated_classifiers_) > 0:
+        base_estimator = model.calibrated_classifiers_[0].estimator
+
+    cases = analyze_local_cases(y_true, y_pred_probs, threshold, X_test, feature_names)
+    if not cases:
+        return pd.DataFrame()
+
+    try:
+        import matplotlib.pyplot as plt
+        import shap
+
+        explainer = shap.TreeExplainer(base_estimator)
+        expected_value = explainer.expected_value
+        if isinstance(expected_value, (list, np.ndarray)):
+            expected_arr = np.asarray(expected_value).ravel()
+            expected_value = expected_arr[1] if len(expected_arr) > 1 else expected_arr[0]
+        case_rows = []
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+        axes = axes.flatten()
+        case_order = ["TP", "FP", "FN", "TN"]
+
+        for ax, case_name in zip(axes, case_order):
+            if case_name not in cases:
+                ax.axis("off")
+                continue
+
+            idx = cases[case_name]["index"]
+            x = X_test[idx:idx + 1]
+            shap_values = explainer.shap_values(x)
+            if isinstance(shap_values, list):
+                values = shap_values[1][0] if len(shap_values) > 1 else shap_values[0][0]
+            else:
+                values = np.asarray(shap_values)[0]
+
+            explanation = shap.Explanation(
+                values=values,
+                base_values=expected_value,
+                data=x[0],
+                feature_names=feature_names,
+            )
+            plt.figure(figsize=(8, 5))
+            shap.plots.waterfall(explanation, max_display=10, show=False)
+            water_path = os.path.join(
+                output_dir,
+                f"figure_11_{case_name.lower()}_local_shap_waterfall.png",
+            )
+            plt.savefig(water_path, dpi=300, bbox_inches="tight")
+            plt.close()
+            plt.figure(fig.number)
+            plt.sca(ax)
+
+            top_idx = np.argsort(np.abs(values))[-8:]
+            top_idx = top_idx[np.argsort(values[top_idx])]
+            colors = ["#D9534F" if values[j] > 0 else "#2E86AB" for j in top_idx]
+            labels = [feature_names[j] for j in top_idx]
+            ax.barh(labels, values[top_idx], color=colors)
+            ax.axvline(0, color="#333333", linewidth=0.8)
+            ax.set_title(
+                f"{case_name}: y={int(y_true[idx])}, p={y_pred_probs[idx]:.3f}, test index={idx}",
+                fontsize=10,
+            )
+            ax.set_xlabel("Local SHAP contribution")
+
+            for rank, j in enumerate(top_idx[::-1], start=1):
+                case_rows.append({
+                    "Case": case_name,
+                    "Test Index": int(idx),
+                    "True Label": int(y_true[idx]),
+                    "Predicted Probability": float(y_pred_probs[idx]),
+                    "Diagnostic Threshold": float(threshold),
+                    "Rank": rank,
+                    "Feature": feature_names[j],
+                    "Feature Value": float(X_test[idx, j]),
+                    "SHAP Contribution": float(values[j]),
+                    "Abs SHAP Contribution": float(abs(values[j])),
+                })
+
+        fig.suptitle("Local SHAP diagnostics for structured XGBoost cases", fontsize=13)
+        fig.tight_layout(rect=[0, 0, 1, 0.96])
+        fig_path = os.path.join(output_dir, "figure_11_local_shap_cases.png")
+        fig.savefig(fig_path, dpi=300, bbox_inches="tight")
+        plt.close(fig)
+
+        local_df = pd.DataFrame(case_rows)
+        local_df.to_csv(os.path.join(output_dir, "local_shap_contributions.csv"), index=False)
+        return local_df
+    except Exception as e:
+        print(f"Warning: Local SHAP artifact generation failed ({e}).")
+        return pd.DataFrame()

@@ -1,4 +1,4 @@
-# Table 10: Limitations and Mitigation Strategies
+# Table 12: Limitations and Mitigation Strategies
 
 | Identified Limitation                      | Description                                                                  | Mitigation Strategy                                                          |
 |:-------------------------------------------|:-----------------------------------------------------------------------------|:-----------------------------------------------------------------------------|

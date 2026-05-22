@@ -1,4 +1,4 @@
-# Table 9: Test-Set Human-in-the-Loop Decision-Routing Results
+# Table 10: Test-Set Human-in-the-Loop Decision-Routing Results
 
 | Model         |   Auto-Clear Rate |   Human-Review Rate |   Urgent-Inspection Rate |   Workload Reduction |   Missed Critical Fault Rate |   False Urgent-Inspection Rate |   Urgent-Inspection Precision |
 |:--------------|------------------:|--------------------:|-------------------------:|---------------------:|-----------------------------:|-------------------------------:|------------------------------:|

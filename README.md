@@ -40,6 +40,7 @@ outputs/
   label_scarcity_splits/
   table_*.csv
   table_*.md
+  local_shap_contributions.csv
   figure_*.png
   generation_config.json
   generation_metadata.json

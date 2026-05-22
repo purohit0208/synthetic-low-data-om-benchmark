@@ -1,4 +1,4 @@
-# Table 5: Main Predictive Performance Results on Test Set
+# Table 6: Main Predictive Performance Results on Test Set
 
 | Model         |   ROC-AUC |   PR-AUC |   F1-Score |   Macro-F1 |   Balanced Accuracy |   Precision |   Recall (Sensitivity) |   False Negative Rate |   False Positive Rate |   Brier Score |       ECE |
 |:--------------|----------:|---------:|-----------:|-----------:|--------------------:|------------:|-----------------------:|----------------------:|----------------------:|--------------:|----------:|

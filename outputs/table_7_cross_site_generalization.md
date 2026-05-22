@@ -1,4 +1,4 @@
-# Table 6: Cross-Site Generalization results and Domain-Shift Gaps
+# Table 7: Cross-Site Generalization results and Domain-Shift Gaps
 
 | Model         |   Random-Split Test PR-AUC |   Cross-Site Mean PR-AUC |   PR-AUC Drop (Shift Gap) |   Random-Split FNR |   Cross-Site Mean FNR |   FNR Inflation |
 |:--------------|---------------------------:|-------------------------:|--------------------------:|-------------------:|----------------------:|----------------:|

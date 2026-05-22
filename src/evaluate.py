@@ -9,7 +9,12 @@ from sklearn.model_selection import train_test_split
 # Import modules from our package
 from src.train import train_and_calibrate, DatasetPreprocessor, get_minilm_embeddings
 from src.routing import optimize_thresholds, compute_routing_metrics, run_sensitivity_analysis
-from src.explain import get_shap_explanations, get_tfidf_explanations, analyze_local_cases
+from src.explain import (
+    get_shap_explanations,
+    get_tfidf_explanations,
+    analyze_local_cases,
+    get_local_shap_case_artifacts,
+)
 
 RANDOM_STATE = 42
 
@@ -119,7 +124,7 @@ def generate_static_tables(output_dir="outputs"):
         f.write("# Table 4: Model Stack and Input Modalities\n\n")
         f.write(t4.to_markdown(index=False))
 
-    # Table 10: Limitations
+    # Table 12: Limitations
     t10 = pd.DataFrame({
         "Identified Limitation": [
             "Purely Synthetic Data Source",
@@ -143,9 +148,9 @@ def generate_static_tables(output_dir="outputs"):
             "Publish open generator code for site-specific customization and retraining."
         ]
     })
-    t10.to_csv(os.path.join(output_dir, "table_10_limitations.csv"), index=False)
-    with open(os.path.join(output_dir, "table_10_limitations.md"), "w") as f:
-        f.write("# Table 10: Limitations and Mitigation Strategies\n\n")
+    t10.to_csv(os.path.join(output_dir, "table_12_limitations.csv"), index=False)
+    with open(os.path.join(output_dir, "table_12_limitations.md"), "w") as f:
+        f.write("# Table 12: Limitations and Mitigation Strategies\n\n")
         f.write(t10.to_markdown(index=False))
 
 def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
@@ -258,9 +263,9 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
         })
         
     df_eval = pd.DataFrame(eval_results)
-    df_eval.to_csv(os.path.join(output_dir, "table_5_predictive_performance.csv"), index=False)
-    with open(os.path.join(output_dir, "table_5_predictive_performance.md"), "w") as f:
-        f.write("# Table 5: Main Predictive Performance Results on Test Set\n\n")
+    df_eval.to_csv(os.path.join(output_dir, "table_6_predictive_performance.csv"), index=False)
+    with open(os.path.join(output_dir, "table_6_predictive_performance.md"), "w") as f:
+        f.write("# Table 6: Main Predictive Performance Results on Test Set\n\n")
         f.write(df_eval.to_markdown(index=False))
         
     print("Baseline performance metrics computed.")
@@ -364,6 +369,10 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
             
     df_exp1 = pd.DataFrame(exp1_results)
     df_exp1.to_csv(os.path.join(output_dir, "exp1_learning_curves.csv"), index=False)
+    df_exp1.to_csv(os.path.join(output_dir, "table_5_learning_curves.csv"), index=False)
+    with open(os.path.join(output_dir, "table_5_learning_curves.md"), "w") as f:
+        f.write("# Table 5: Main Learning Curve Results under Label Scarcity\n\n")
+        f.write(df_exp1.to_markdown(index=False))
     
     # ----------------------------------------------------
     # Experiment 2: Cross-Site Domain Shift
@@ -423,9 +432,9 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
     df_exp2 = pd.DataFrame(exp2_results)
     df_exp2.to_csv(os.path.join(output_dir, "exp2_site_generalization.csv"), index=False)
     
-    # Generate Table 6: Cross-site comparison
+    # Generate Table 7: Cross-site comparison
     # Summarize mean drop across sites
-    # Let's construct a clean Table 6 representation
+    # Let's construct a clean Table 7 representation
     t6_summary = []
     for m_name in track_models:
         site_metrics = df_exp2[df_exp2["Model"] == m_name]
@@ -456,9 +465,9 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
         })
         
     df_t6 = pd.DataFrame(t6_summary)
-    df_t6.to_csv(os.path.join(output_dir, "table_6_cross_site_generalization.csv"), index=False)
-    with open(os.path.join(output_dir, "table_6_cross_site_generalization.md"), "w") as f:
-        f.write("# Table 6: Cross-Site Generalization results and Domain-Shift Gaps\n\n")
+    df_t6.to_csv(os.path.join(output_dir, "table_7_cross_site_generalization.csv"), index=False)
+    with open(os.path.join(output_dir, "table_7_cross_site_generalization.md"), "w") as f:
+        f.write("# Table 7: Cross-Site Generalization results and Domain-Shift Gaps\n\n")
         f.write(df_t6.to_markdown(index=False))
 
     # ----------------------------------------------------
@@ -542,11 +551,11 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
     df_exp3 = pd.DataFrame(exp3_results)
     df_exp3.to_csv(os.path.join(output_dir, "exp3_robustness_results.csv"), index=False)
     
-    # Save Table 7: Calibration and Robustness summaries
+    # Save Table 8: Calibration and Robustness summaries
     df_t7 = df_exp3.copy()
-    df_t7.to_csv(os.path.join(output_dir, "table_7_robustness_summary.csv"), index=False)
-    with open(os.path.join(output_dir, "table_7_robustness_summary.md"), "w") as f:
-        f.write("# Table 7: Robustness and Performance Degradation Under Test Perturbations\n\n")
+    df_t7.to_csv(os.path.join(output_dir, "table_8_robustness_summary.csv"), index=False)
+    with open(os.path.join(output_dir, "table_8_robustness_summary.md"), "w") as f:
+        f.write("# Table 8: Robustness and Performance Degradation Under Test Perturbations\n\n")
         f.write(df_t7.to_markdown(index=False))
 
     # ----------------------------------------------------
@@ -607,15 +616,15 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
         })
         
     df_t8 = pd.DataFrame(t8_results)
-    df_t8.to_csv(os.path.join(output_dir, "table_8_routing_thresholds.csv"), index=False)
-    with open(os.path.join(output_dir, "table_8_routing_thresholds.md"), "w") as f:
-        f.write("# Table 8: Selected Routing Thresholds and Validation Objective Values\n\n")
+    df_t8.to_csv(os.path.join(output_dir, "table_9_routing_thresholds.csv"), index=False)
+    with open(os.path.join(output_dir, "table_9_routing_thresholds.md"), "w") as f:
+        f.write("# Table 9: Selected Routing Thresholds and Validation Objective Values\n\n")
         f.write(df_t8.to_markdown(index=False))
         
     df_t9 = pd.DataFrame(t9_results)
-    df_t9.to_csv(os.path.join(output_dir, "table_9_routing_results.csv"), index=False)
-    with open(os.path.join(output_dir, "table_9_routing_results.md"), "w") as f:
-        f.write("# Table 9: Test-Set Human-in-the-Loop Decision-Routing Results\n\n")
+    df_t9.to_csv(os.path.join(output_dir, "table_10_routing_results.csv"), index=False)
+    with open(os.path.join(output_dir, "table_10_routing_results.md"), "w") as f:
+        f.write("# Table 10: Test-Set Human-in-the-Loop Decision-Routing Results\n\n")
         f.write(df_t9.to_markdown(index=False))
         
     # Sensitivity analysis for alpha in 0.01, 0.03, 0.05, 0.10 for every model.
@@ -868,6 +877,10 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
     
     print("Generating SHAP explanations...")
     global_imp, _ = get_shap_explanations(xgb_base, X_train["struct"], X_test_dict["struct"], struct_cols, output_dir=output_dir)
+    global_imp.to_csv(os.path.join(output_dir, "table_11_global_feature_importance.csv"), index=False)
+    with open(os.path.join(output_dir, "table_11_global_feature_importance.md"), "w") as f:
+        f.write("# Table 11: Global Feature Importances for the XGBoost Structured Baseline\n\n")
+        f.write(global_imp.head(10).to_markdown(index=False))
     
     fig, ax = plt.subplots(figsize=(8, 5))
     top_10 = global_imp.head(10).sort_values(by="Importance", ascending=True)
@@ -879,17 +892,27 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
     plt.savefig(os.path.join(output_dir, "figure_10_shap.png"), dpi=300)
     plt.close()
     
-    # Get local case analysis for Figure 10 / Results text
-    # Pick fusion_minilm threshold and label
-    t_probs_fm = test_probs_dict["fusion_minilm"]
+    # Get local case analysis for interpretable structured XGBoost diagnostics.
+    t_probs_xgb = test_probs_dict["xgb_struct"]
     diagnostic_threshold = 0.5
     
     cases = analyze_local_cases(
         y_test,
-        t_probs_fm,
+        t_probs_xgb,
         diagnostic_threshold,
-        X_test_dict["fusion_minilm"],
-        list(test_struct.columns) + [f"minilm_{j}" for j in range(384)]
+        X_test_dict["struct"],
+        list(test_struct.columns)
+    )
+
+    get_local_shap_case_artifacts(
+        xgb_base,
+        X_test_dict["struct"],
+        y_test,
+        t_probs_xgb,
+        list(test_struct.columns),
+        threshold=diagnostic_threshold,
+        output_dir=output_dir,
+        prefix="xgb_struct",
     )
     
     # Save local case index information for report writing

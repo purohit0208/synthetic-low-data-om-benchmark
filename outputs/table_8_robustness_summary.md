@@ -1,4 +1,4 @@
-# Table 7: Robustness and Performance Degradation Under Test Perturbations
+# Table 8: Robustness and Performance Degradation Under Test Perturbations
 
 | Model         | Perturbation_Type   | Level   |    PR-AUC |   Macro-F1 |   Recall |      FNR |
 |:--------------|:--------------------|:--------|----------:|-----------:|---------:|---------:|

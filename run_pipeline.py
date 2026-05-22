@@ -41,7 +41,7 @@ def main(days=365, seed=42, output_dir="outputs"):
     
     print("\n" + "=" * 60)
     print("PIPELINE EXECUTION COMPLETE")
-    print(f"All artifacts, tables (1-10), and figures (1-10) saved to '{output_dir}/'")
+    print(f"All artifacts, tables (1-12), and figures (1-11) saved to '{output_dir}/'")
     print("=" * 60)
 
 if __name__ == "__main__":

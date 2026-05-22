@@ -1,4 +1,4 @@
-# Table 8: Selected Routing Thresholds and Validation Objective Values
+# Table 9: Selected Routing Thresholds and Validation Objective Values
 
 | Model         |   t_low* |   t_high* |   Validation Workload Reduction |   Validation Missed Fault Rate |
 |:--------------|---------:|----------:|--------------------------------:|-------------------------------:|
