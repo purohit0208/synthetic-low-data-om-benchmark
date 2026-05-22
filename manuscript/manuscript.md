@@ -5,9 +5,19 @@
 
 ---
 
+**Article Type:** Article
+
+**Author:** Parth Purohit
+
+**Affiliation:** Independent Researcher
+
+**Correspondence:** To be supplied in the MDPI submission system.
+
+**Keywords:** predictive maintenance; industrial operation and maintenance; synthetic benchmark; low-data learning; domain shift; uncertainty calibration; human-in-the-loop decision support; technician reports; explainable AI; reproducibility
+
 ## Abstract
 
-Industrial operation and maintenance (O&M) AI is difficult to evaluate when labeled faults are scarce, fault events are rare, sensor observations are noisy, technician reports are incomplete, and deployment sites differ from training sites. This paper presents a reproducible synthetic benchmark for studying these conditions in a generic multi-site industrial setting. The benchmark simulates 480 assets across six plants over 365 days, producing 175,200 shift-level records with latent degradation, noisy structured observations, imperfect technician reports, maintenance labels, chronological splits, random splits, site-held-out splits, and leakage-audited feature matrices. We evaluate seven calibrated models spanning structured-only classifiers, TF-IDF plus Logistic Regression, frozen MiniLM sentence embeddings, and structured-plus-text fusion. Results on the synthetic benchmark show that structured Random Forest reaches the highest chronological-test PR-AUC (0.398), while text-only models remain weak (PR-AUC below 0.09). Random-split evaluation substantially overstates generalization for tree and fusion models: Random Forest PR-AUC drops from 0.708 under a random split to 0.439 under held-out-site evaluation, and its false negative rate increases from 0.471 to 0.815. Test-time sensor noise reduces PR-AUC sharply, whereas report perturbations have limited impact on fusion models because the trained classifiers rely primarily on structured sensor and maintenance-history features. A validation-set threshold optimizer selects routing thresholds before test evaluation; at $\alpha=0.05$, calibrated Random Forest auto-clears 71.9% of test cases while routing 0.35% of positives to auto-clear. The study is limited to synthetic data and does not claim real industrial deployment validation.
+Industrial operation and maintenance (O&M) AI is difficult to evaluate when labeled faults are scarce, sensor observations are noisy, technician reports are incomplete, and deployment sites differ from training sites. This paper presents a reproducible synthetic benchmark for these conditions in a generic multi-site industrial setting. The benchmark simulates 480 assets across six plants over 365 days, producing 175,200 shift-level records with latent degradation, noisy structured observations, imperfect technician reports, leakage-audited features, chronological splits, random splits, and site-held-out splits. Seven calibrated models are evaluated, including structured-only classifiers, TF-IDF plus Logistic Regression, frozen MiniLM sentence embeddings, and structured-plus-text fusion. Random Forest obtains the highest chronological-test PR-AUC (0.398), while text-only models remain below 0.09 PR-AUC. Random-split evaluation overstates generalization: Random Forest PR-AUC falls from 0.708 under random splitting to 0.439 under held-out-site testing, with false negative rate increasing from 0.471 to 0.815. Sensor noise sharply reduces PR-AUC, whereas report perturbations have limited effect on fusion models. A validation-set routing optimizer selects thresholds before test evaluation; at $\alpha=0.05$, calibrated Random Forest auto-clears 71.9% of test cases while routing 0.35% of positives to auto-clear. The study is limited to synthetic data and does not claim real industrial deployment validation.
 
 ---
 
@@ -51,7 +61,7 @@ Explainable predictive-maintenance surveys discuss SHAP, LIME, and related techn
 
 ---
 
-## 3. Synthetic Benchmark Design
+## 3. Materials and Methods: Synthetic Benchmark Design
 
 We simulate a multi-site manufacturing environment to generate a benchmark dataset that captures selected O&M complexities while maintaining ground-truth control.
 
@@ -121,7 +131,7 @@ A comparison of Table 2 with the main target label reveals an apparent discrepan
 
 ---
 
-## 4. Experimental Scenarios and Controlled Variables
+## 4. Experimental Design and Controlled Variables
 
 To thoroughly stress-test the trustworthy AI stack, we define four distinct experimental scenarios as shown in **Table 3**.
 
@@ -136,7 +146,7 @@ To thoroughly stress-test the trustworthy AI stack, we define four distinct expe
 
 ---
 
-## 5. Predictive Modeling and Calibrated Routing Methods
+## 5. Predictive Modeling, Calibration, and Routing Methods
 
 We evaluate seven models across structured, textual, and multimodal fusion architectures. The model stack and modalities are detailed in **Table 4**.
 TF-IDF features are extracted with scikit-learn's `TfidfVectorizer` [22]. MiniLM text representations use the frozen `sentence-transformers/all-MiniLM-L6-v2` sentence encoder, which maps sentences to 384-dimensional embeddings [23]. The structured baselines include Random Forest [24] and XGBoost [25], and post-hoc global feature analysis uses SHAP [26]. Platt-style sigmoid calibration is applied on validation data [27].
@@ -182,7 +192,7 @@ The orchestrating pipeline maps simulation files to structural pipelines, leakag
 
 ---
 
-## 7. Empirical Results
+## 7. Results
 
 ### 7.1. Label Scarcity Learning Curves (Experiment 1)
 To address label scarcity (RQ1), we evaluated the models by training them on subsets of training data representing fractions of 1%, 5%, 10%, 25%, 50%, and 100%. The test-set results for PR-AUC and Brier Score are detailed in **Table 5**.
@@ -426,11 +436,20 @@ The results support the benchmark's purpose: evaluating industrial O&M models be
 
 ## Backmatter Declarations
 
+### Supplementary Materials
+The synthetic dataset, benchmark code, split manifests, result tables, and figures are available through the public GitHub repository listed in the Data Availability Statement.
+
+### Funding
+This research received no external funding.
+
 ### Author Contributions
 Conceptualization, P.P.; methodology, P.P.; software, P.P.; validation, P.P.; formal analysis, P.P.; investigation, P.P.; data curation, P.P.; writing, original draft preparation, P.P.; writing, review and editing, P.P.; visualization, P.P.; project administration, P.P. The author has read and agreed to the published version of the manuscript.
 
 ### Data Availability Statement
-The synthetic dataset generation code, benchmark configuration files, generated dataset, split manifests, model-training scripts, threshold-selection scripts, evaluation outputs, result tables, and figures will be made available in a public GitHub repository before submission. The repository URL, release tag, and commit hash must be inserted here after the repository is created. The dataset is fully synthetic and does not contain real industrial, personal, proprietary, or institution-owned data.
+The synthetic dataset generation code, benchmark configuration files, generated synthetic dataset, train/validation/test split files, label-scarcity split files, site-held-out split files, model-training scripts, threshold-selection scripts, evaluation scripts, result tables, and figure-generation artifacts are openly available at https://github.com/purohit0208/synthetic-low-data-om-benchmark, release `v1.0.0-mdpi-ai-submission`. The dataset is fully synthetic and does not contain real industrial, personal, proprietary, or institution-owned operational data.
+
+### Acknowledgments
+The author thanks the developers of the open-source Python libraries used in the benchmark pipeline.
 
 ### Conflicts of Interest
 The author declares no conflict of interest.

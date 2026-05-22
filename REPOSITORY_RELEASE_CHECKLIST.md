@@ -6,17 +6,17 @@ Use this checklist before publishing the GitHub repository or inserting a reposi
 
 - [x] Confirm final repository name and owner: `purohit0208/synthetic-low-data-om-benchmark`.
 - [x] Choose a final license for code and generated synthetic data: MIT.
-- [ ] Confirm that `literature_review/` is not committed.
-- [ ] Confirm that `manuscript/*.docx` is not committed unless regenerated from the corrected source.
-- [ ] Confirm that `outputs/latent_database.parquet` is not committed.
-- [ ] Run `python src/generator.py --test-leakage`.
-- [ ] Run `python run_pipeline.py --days 365 --seed 42 --output-dir outputs`.
-- [ ] Check that `outputs/generation_metadata.json` reports 175,200 rows, 480 assets, six sites, and report coverage inside the intended 20% to 40% range.
-- [ ] Check that `outputs/routing_sensitivity.csv` contains all seven models.
-- [ ] Create a public GitHub repository.
-- [ ] Push the cleaned package.
+- [x] Confirm that `literature_review/` is not committed.
+- [x] Confirm that `manuscript/*.docx` is not committed unless regenerated from the corrected source.
+- [x] Confirm that `outputs/latent_database.parquet` is not committed.
+- [x] Run `python src/generator.py --test-leakage`.
+- [x] Run `python run_pipeline.py --days 365 --seed 42 --output-dir outputs`.
+- [x] Check that `outputs/generation_metadata.json` reports 175,200 rows, 480 assets, six sites, and report coverage inside the intended 20% to 40% range.
+- [x] Check that `outputs/routing_sensitivity.csv` contains all seven models.
+- [x] Create a public GitHub repository.
+- [x] Push the cleaned package.
 - [ ] Create a release tag, for example `v1.0.0-mdpi-ai-submission`.
-- [ ] Insert the real repository URL and release tag or commit hash in the manuscript Data Availability Statement.
+- [x] Insert the real repository URL and release tag or commit hash in the manuscript Data Availability Statement.
 - [ ] Regenerate the manuscript DOCX using the selected journal template.
 - [ ] Perform a final formal reference metadata check against PDFs, DOI pages, publisher pages, and official documentation.
 
