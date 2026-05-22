@@ -135,14 +135,14 @@ def generate_static_tables(output_dir="outputs"):
         ],
         "Description": [
             "Dataset is simulated and does not use real plant observations.",
-            "Degradation modeled as Markovian process with additive noise/shocks.",
+            "Simplified stochastic degradation model with Markovian drift and Poisson shock events.",
             "Text reports constructed from templates rather than natural speech.",
             "Workload reduction assumes immediate human availability and accuracy.",
             "Performance on real systems may vary due to unmodeled environmental physics."
         ],
         "Mitigation Strategy": [
             "Benchmark serves as a method verification protocol prior to deployment.",
-            "Include stochastic shocks and site scaling parameters to reflect complexity.",
+            "Compare generated distributions with public real-condition monitoring datasets in future external-validation work.",
             "Inject 15% template ambiguity, omission, and misleading report flags.",
             "Run sensitivity analysis on alpha constraint to explore safety envelopes.",
             "Publish open generator code for site-specific customization and retraining."
@@ -441,6 +441,7 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
         mean_pr = site_metrics["PR-AUC"].mean()
         std_pr = site_metrics["PR-AUC"].std()
         mean_fnr = site_metrics["FNR"].mean()
+        std_fnr = site_metrics["FNR"].std()
         
         # Find random-split test performance for comparison, falling back to chronological baseline.
         if random_eval_df is not None:
@@ -458,9 +459,11 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
             "Model": m_name,
             f"{base_label} Test PR-AUC": base_pr,
             "Cross-Site Mean PR-AUC": mean_pr,
+            "Cross-Site PR-AUC Std": std_pr,
             "PR-AUC Drop (Shift Gap)": base_pr - mean_pr,
             f"{base_label} FNR": base_fnr,
             "Cross-Site Mean FNR": mean_fnr,
+            "Cross-Site FNR Std": std_fnr,
             "FNR Inflation": mean_fnr - base_fnr
         })
         
