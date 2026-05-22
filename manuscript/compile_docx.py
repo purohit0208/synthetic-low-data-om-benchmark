@@ -5,6 +5,7 @@ from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement, parse_xml
 from docx.oxml.ns import nsdecls, qn
+from PIL import Image
 
 def set_cell_background(cell, color_hex):
     """Sets background color of a table cell."""
@@ -42,6 +43,30 @@ def add_paragraph_with_bold_runs(doc, text, style=None):
                 else:
                     p.add_run(subpart)
     return p
+
+def docx_safe_image_path(image_path, script_dir):
+    """Convert PNG figures to JPEG for more reliable headless DOCX/PDF rendering."""
+    if not image_path.lower().endswith(".png"):
+        return image_path
+
+    output_dir = os.path.join(script_dir, "docx_images")
+    os.makedirs(output_dir, exist_ok=True)
+    base = os.path.splitext(os.path.basename(image_path))[0]
+    output_path = os.path.join(output_dir, f"{base}.jpg")
+
+    if os.path.exists(output_path) and os.path.getmtime(output_path) >= os.path.getmtime(image_path):
+        return output_path
+
+    with Image.open(image_path) as img:
+        if img.mode in ("RGBA", "LA"):
+            background = Image.new("RGB", img.size, (255, 255, 255))
+            background.paste(img, mask=img.split()[-1])
+            img = background
+        else:
+            img = img.convert("RGB")
+        img.save(output_path, "JPEG", quality=94, optimize=True)
+
+    return output_path
 
 def main():
     md_path = "manuscript.md"
@@ -121,6 +146,7 @@ def main():
                 full_img_path = img_path
                 
             if os.path.exists(full_img_path):
+                full_img_path = docx_safe_image_path(full_img_path, script_dir)
                 print(f"Embedding image: {full_img_path}")
                 try:
                     # Add picture (centered)

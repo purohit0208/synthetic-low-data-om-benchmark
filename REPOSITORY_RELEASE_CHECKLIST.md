@@ -15,9 +15,9 @@ Use this checklist before publishing the GitHub repository or inserting a reposi
 - [x] Check that `outputs/routing_sensitivity.csv` contains all seven models.
 - [x] Create a public GitHub repository.
 - [x] Push the cleaned package.
-- [ ] Create a release tag, for example `v1.0.0-mdpi-ai-submission`.
+- [x] Create a release tag, for example `v1.0.0-mdpi-ai-submission`.
 - [x] Insert the real repository URL and release tag or commit hash in the manuscript Data Availability Statement.
-- [ ] Regenerate the manuscript DOCX using the selected journal template.
+- [x] Regenerate the final manuscript DOCX from the corrected Markdown source.
 - [ ] Perform a final formal reference metadata check against PDFs, DOI pages, publisher pages, and official documentation.
 
 ## Files Expected in Public Repository

@@ -1,10 +1,5 @@
 # A Synthetic Low-Data Benchmark for Trustworthy AI-Based Industrial Operation and Maintenance Decision Support
 
-**Target Journal:** *AI* (MDPI)  
-**Special Issue:** *AI for Industrial Operation and Maintenance: Recognition Challenges with Limited Data Condition*
-
----
-
 **Article Type:** Article
 
 **Author:** Parth Purohit
