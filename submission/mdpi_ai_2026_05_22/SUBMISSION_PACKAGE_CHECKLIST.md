@@ -16,7 +16,7 @@ Core upload files prepared:
 
 Before online submission:
 
-- Confirm the author affiliation, correspondence email, ORCID, and biography in the MDPI submission system.
+- Confirm the author affiliation, correspondence email, ORCID, website, and biography in the MDPI submission system.
 - Select Article as the manuscript type.
 - Select the special issue named above during submission.
 - Confirm the cover-letter required statements are still true.

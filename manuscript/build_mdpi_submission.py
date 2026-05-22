@@ -23,6 +23,15 @@ SUB = ROOT / "submission" / "mdpi_ai_2026_05_22"
 FIG = SUB / "figures_high_res"
 SUPP = SUB / "supplementary"
 
+AUTHOR_NAME = "Parth Purohit"
+AUTHOR_ROLE = "Wiss. Mitarbeiter | Research Associate"
+AUTHOR_AFFILIATION = "Technische Universität Braunschweig, Institut für Flugführung | Institute of Flight Guidance"
+AUTHOR_ADDRESS = "Hermann-Blenk-Str. 27, 38108 Braunschweig, Germany"
+AUTHOR_EMAIL = "parth-yogeshbhai.purohit@tu-braunschweig.de"
+AUTHOR_WEBSITE = "https://www.tu-braunschweig.de/iff"
+AUTHOR_ORCID = "0009-0005-1547-8992"
+AUTHOR_ORCID_URL = f"https://orcid.org/{AUTHOR_ORCID}"
+
 ALPHA = chr(945)
 DELTA = chr(916)
 GAMMA = chr(947)
@@ -462,11 +471,17 @@ def build_docx():
     title.add_run("A Synthetic Low-Data Benchmark for Trustworthy AI-Based Industrial Operation and Maintenance Decision Support")
     p = doc.add_paragraph("Article Type: Article")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p = doc.add_paragraph("Author: Parth Purohit")
+    p = doc.add_paragraph(f"Author: {AUTHOR_NAME}")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p = doc.add_paragraph("Affiliation: Independent Researcher")
+    p = doc.add_paragraph(f"Role: {AUTHOR_ROLE}")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p = doc.add_paragraph("Correspondence: To be supplied in the MDPI submission system.")
+    p = doc.add_paragraph(f"Affiliation: {AUTHOR_AFFILIATION}")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p = doc.add_paragraph(f"Address: {AUTHOR_ADDRESS}")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p = doc.add_paragraph(f"ORCID: {AUTHOR_ORCID_URL}")
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p = doc.add_paragraph(f"Correspondence: {AUTHOR_EMAIL}; {AUTHOR_WEBSITE}")
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     add_paragraph(doc, "Keywords: predictive maintenance; industrial operation and maintenance; synthetic benchmark; low-data learning; domain shift; uncertainty calibration; human-in-the-loop decision support; technician reports; explainable AI; reproducibility")
 
@@ -679,7 +694,7 @@ def build_docx():
     add_paragraph(doc, "Supplementary Materials", "Heading 2")
     add_paragraph(doc, "The supplementary material consists of the public reproducibility repository, generated synthetic dataset, split manifests, result tables, high-resolution figures, graphical abstract, and the supplementary README included with this submission package.")
     add_paragraph(doc, "Funding", "Heading 2")
-    add_paragraph(doc, "This research received no external funding.")
+    add_paragraph(doc, "This research received no external funding. The study was conducted as independent research by the author.")
     add_paragraph(doc, "Author Contributions", "Heading 2")
     add_paragraph(doc, "Conceptualization, P.P.; methodology, P.P.; software, P.P.; validation, P.P.; formal analysis, P.P.; investigation, P.P.; data curation, P.P.; writing-original draft preparation, P.P.; writing-review and editing, P.P.; visualization, P.P.; project administration, P.P. The author has read and agreed to the submitted version of the manuscript.")
     add_paragraph(doc, "Data Availability Statement", "Heading 2")
@@ -746,13 +761,17 @@ def build_cover_letter():
     add_paragraph(doc, "Please consider the manuscript titled \"A Synthetic Low-Data Benchmark for Trustworthy AI-Based Industrial Operation and Maintenance Decision Support\" for publication as an Article in AI, for the special issue \"AI for Industrial Operation and Maintenance: Recognition Challenges with Limited Data Condition.\"")
     add_paragraph(doc, "The manuscript contributes a reproducible synthetic benchmark and evaluation protocol for AI-based industrial O&M decision support under scarce labels, rare maintenance positives, noisy structured observations, imperfect technician reports, and cross-site domain shift. It evaluates structured-only, text-only, and fusion baselines; reports predictive performance, calibration, robustness, and explainability diagnostics; and introduces validation-set-selected human-in-the-loop routing thresholds under a missed-fault constraint.")
     add_paragraph(doc, "The work fits the special issue because it directly addresses AI-driven recognition challenges in industrial operation and maintenance under limited-data conditions, including sparse labels, rare fault events, synthetic data generation, noisy sensor observations, transfer/domain shift, uncertainty calibration, explainability, and human-supervisor routing.")
-    add_paragraph(doc, "All data used in the study are synthetically generated. No real industrial data, personal data, confidential project data, proprietary institutional material, or third-party operational records were used.")
+    add_paragraph(doc, "All data used in the study are synthetically generated. No real industrial data, personal data, confidential project data, proprietary institutional material, or third-party operational records were used. The study was conducted as independent research and received no external funding.")
     add_paragraph(doc, "The reproducibility package is publicly available at https://github.com/purohit0208/synthetic-low-data-om-benchmark.")
     add_paragraph(doc, "Required statements: I confirm that neither the manuscript nor any parts of its content are currently under consideration for publication with, or published in, another journal. I confirm that the author has approved the manuscript and agrees with its submission to AI.")
     add_paragraph(doc, "Sincerely,")
-    add_paragraph(doc, "Parth Purohit")
-    add_paragraph(doc, "Independent Researcher")
-    add_paragraph(doc, "Correspondence: To be supplied in the MDPI submission system.")
+    add_paragraph(doc, AUTHOR_NAME)
+    add_paragraph(doc, AUTHOR_ROLE)
+    add_paragraph(doc, AUTHOR_AFFILIATION)
+    add_paragraph(doc, AUTHOR_ADDRESS)
+    add_paragraph(doc, f"ORCID: {AUTHOR_ORCID_URL}")
+    add_paragraph(doc, f"Correspondence: {AUTHOR_EMAIL}")
+    add_paragraph(doc, AUTHOR_WEBSITE)
     doc.save(SUB / "COVER_LETTER_MDPI_AI.docx")
 
 
@@ -770,7 +789,7 @@ def write_submission_docs():
         "- figures_high_res.zip (optional high-resolution figure source package)\n"
         "- supplementary/SUPPLEMENTARY_MATERIALS_README.md\n\n"
         "Before online submission:\n\n"
-        "- Confirm the author affiliation, correspondence email, ORCID, and biography in the MDPI submission system.\n"
+        "- Confirm the author affiliation, correspondence email, ORCID, website, and biography in the MDPI submission system.\n"
         "- Select Article as the manuscript type.\n"
         "- Select the special issue named above during submission.\n"
         "- Confirm the cover-letter required statements are still true.\n"
@@ -813,13 +832,17 @@ def write_submission_docs():
         "Special issue: AI for Industrial Operation and Maintenance: Recognition Challenges with Limited Data Condition\n\n"
         "Article type: Article\n\n"
         "Title: A Synthetic Low-Data Benchmark for Trustworthy AI-Based Industrial Operation and Maintenance Decision Support\n\n"
-        "Author: Parth Purohit\n\n"
-        "Affiliation: Independent Researcher\n\n"
-        "Corresponding author email: To be supplied in the MDPI submission system.\n\n"
+        f"Author: {AUTHOR_NAME}\n\n"
+        f"Role: {AUTHOR_ROLE}\n\n"
+        f"Affiliation: {AUTHOR_AFFILIATION}\n\n"
+        f"Address: {AUTHOR_ADDRESS}\n\n"
+        f"ORCID: {AUTHOR_ORCID_URL}\n\n"
+        f"Corresponding author email: {AUTHOR_EMAIL}\n\n"
+        f"Website: {AUTHOR_WEBSITE}\n\n"
         "Keywords: predictive maintenance; industrial operation and maintenance; synthetic benchmark; low-data learning; domain shift; uncertainty calibration; human-in-the-loop decision support; technician reports; explainable AI; reproducibility\n\n"
         "Abstract:\n\n"
         "Industrial operation and maintenance (O&M) AI is difficult to evaluate when labeled failures are scarce, observations are noisy, technician reports are incomplete, and deployment sites differ from training sites. This article presents a reproducible synthetic benchmark for these conditions in a generic multi-site industrial setting. The generator simulates 480 assets across six plants over 365 days, producing 175,200 shift-level records with hidden degradation, noisy structured observations, imperfect technician reports, leakage-audited features, chronological splits, random splits, and site-held-out splits. Seven calibrated baselines are evaluated: structured-only classifiers, TF-IDF plus Logistic Regression, frozen MiniLM sentence embeddings, and structured-plus-text fusion. Random Forest obtains the highest chronological-test PR-AUC (0.398), but at the default 0.5 threshold still misses 58.5% of positives. Random-split evaluation overstates generalization: Random Forest PR-AUC falls from 0.708 under random splitting to 0.439 under held-out-site testing, and false negative rate increases from 0.471 to 0.815. Validation-set routing thresholds can reduce workload, but only for models whose low-risk calibration tails satisfy the missed-fault constraint. The study is fully synthetic and does not claim real industrial deployment validation.\n\n"
-        "Funding statement: This research received no external funding.\n\n"
+        "Funding statement: This research received no external funding. The study was conducted as independent research by the author.\n\n"
         "Data availability statement: The synthetic dataset generation code, benchmark configuration files, generated synthetic dataset, train/validation/test split files, label-scarcity split files, site-held-out split files, model-training scripts, threshold-selection scripts, evaluation scripts, result tables, and figure-generation artifacts are available at https://github.com/purohit0208/synthetic-low-data-om-benchmark. The dataset is fully synthetic and does not contain real industrial, personal, proprietary, or institution-owned operational data.\n\n"
         "Conflict of interest statement: The author declares no conflicts of interest.\n\n"
         "Generative AI disclosure: During the preparation of this manuscript/study, the author used ChatGPT and Gemini for research planning, code drafting, manuscript structuring, and language refinement. The author reviewed and edited all outputs, verified the methods, results, and references, and takes full responsibility for the content of this publication.\n\n"
