@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_auc_score, precision_recall_curve, auc, f1_score, balanced_accuracy_score, precision_score, recall_score, brier_score_loss
+from sklearn.metrics import roc_auc_score, precision_recall_curve, auc, f1_score, balanced_accuracy_score, precision_score, recall_score, brier_score_loss, confusion_matrix
 from sklearn.calibration import calibration_curve
 from sklearn.model_selection import train_test_split
 
@@ -58,6 +58,12 @@ def expected_calibration_error(y_true, y_prob, n_bins=10):
             bin_conf = np.mean(y_prob[bin_mask])
             ece += (bin_size / total_samples) * np.abs(bin_acc - bin_conf)
     return ece
+
+def false_positive_rate(y_true, y_pred):
+    """Return FP / (FP + TN) for the positive maintenance-required class."""
+    tn, fp, fn, tp = confusion_matrix(y_true, y_pred, labels=[0, 1]).ravel()
+    denominator = fp + tn
+    return fp / denominator if denominator else 0.0
 
 def generate_static_tables(output_dir="outputs"):
     """
@@ -240,10 +246,10 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
         f1 = f1_score(y_test, preds)
         macro_f1 = f1_score(y_test, preds, average="macro")
         bal_acc = balanced_accuracy_score(y_test, preds)
-        prec = precision_score(y_test, preds)
-        rec = recall_score(y_test, preds)
+        prec = precision_score(y_test, preds, zero_division=0)
+        rec = recall_score(y_test, preds, zero_division=0)
         fnr = 1.0 - rec
-        fpr = 1.0 - precision_score(1 - y_test, 1 - preds)
+        fpr = false_positive_rate(y_test, preds)
         brier = brier_score_loss(y_test, probs)
         ece = expected_calibration_error(y_test, probs)
         
@@ -294,7 +300,7 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
             feat_key = model_feature_map[name]
             probs = model.predict_proba(random_X_test[feat_key])[:, 1]
             preds = (probs >= 0.5).astype(int)
-            rec = recall_score(y_random_test, preds)
+            rec = recall_score(y_random_test, preds, zero_division=0)
             random_results.append({
                 "Model": name,
                 "Random-Split ROC-AUC": roc_auc_score(y_random_test, probs),
@@ -411,7 +417,7 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
                     preds = (probs >= 0.5).astype(int)
                     
                     pr = pr_auc_score(y_te_site, probs)
-                    rec = recall_score(y_te_site, preds)
+                    rec = recall_score(y_te_site, preds, zero_division=0)
                     fnr = 1.0 - rec
                     ece = expected_calibration_error(y_te_site, probs)
                     
@@ -498,8 +504,8 @@ def build_evaluation_tables_and_plots(dataset_path, output_dir="outputs"):
                 "Level": level,
                 "PR-AUC": pr_auc_score(y_test, probs),
                 "Macro-F1": f1_score(y_test, preds, average="macro"),
-                "Recall": recall_score(y_test, preds),
-                "FNR": 1.0 - recall_score(y_test, preds)
+                "Recall": recall_score(y_test, preds, zero_division=0),
+                "FNR": 1.0 - recall_score(y_test, preds, zero_division=0)
             })
     
     # 3.1 Sensor Noise

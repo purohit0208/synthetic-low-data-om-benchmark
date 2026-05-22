@@ -97,13 +97,14 @@ class DatasetPreprocessor:
         self.cat_cols = ["site_id", "asset_type", "component_type", "shift_type"]
         
     def fit(self, df):
-        # Fit numerical
-        self.num_imputer.fit(df[self.num_cols])
-        scaled_num = self.num_scaler.fit(df[self.num_cols])
-        
-        # Fit categorical
-        self.cat_imputer.fit(df[self.cat_cols])
-        self.cat_encoder.fit(df[self.cat_cols])
+        # Fit numerical preprocessing on the same imputed representation used
+        # at transform time, so missing-value experiments remain consistent.
+        num_imputed = self.num_imputer.fit_transform(df[self.num_cols])
+        self.num_scaler.fit(num_imputed)
+
+        # Fit categorical preprocessing after imputation for the same reason.
+        cat_imputed = self.cat_imputer.fit_transform(df[self.cat_cols])
+        self.cat_encoder.fit(cat_imputed)
         
         # Fit TF-IDF
         reports = df["technician_report"].fillna("")

@@ -1,0 +1,30 @@
+Reference QA summary
+Checked: 22 May 2026
+
+Scope: Internal pre-submission reference audit for FINAL_MANUSCRIPT_MDPI_AI.docx.
+
+Source rule: final manuscript references are drawn from the local paper set in
+D:\ExtraPapers\literature_review\Papers and the associated extracted text/source
+notes. Consensus reports were used only as discovery/synthesis artifacts. Reddit,
+Facebook, casual social-media posts, SEO summaries, and unsupported web claims
+were not used as manuscript evidence.
+
+Current reference base:
+
+- 33 local downloaded papers are cited.
+- The previously expected 31.pdf is not present in the local paper folder and is
+  therefore not cited.
+- Tool/documentation references such as scikit-learn, Hugging Face model cards,
+  Random Forest, XGBoost, SHAP, and Platt calibration were removed from the final
+  reference list to comply with the user's request that manuscript references come
+  from the local literature-review folder.
+
+Evidence boundary:
+
+- Literature citations support background, method motivation, and limitation
+  framing.
+- Synthetic dataset size, model metrics, routing thresholds, robustness results,
+  and explanation figures are supported by generated artifacts under
+  D:\ExtraPapers\outputs, not by external literature.
+- No source verifies that the synthetic generator is physically valid for real
+  industrial deployment. The manuscript states this limitation explicitly.
