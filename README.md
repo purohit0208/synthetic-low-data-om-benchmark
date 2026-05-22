@@ -45,12 +45,7 @@ outputs/
   generation_metadata.json
   split_manifest.csv
   label_scarcity_manifest.csv
-manuscript/
-  manuscript.md
-AUDIT_AND_REPAIR_NOTES.md
-PUBLIC_REPOSITORY_PLAN.md
 DATASET_CARD.md
-REPOSITORY_RELEASE_CHECKLIST.md
 requirements.txt
 LICENSE
 CITATION.cff
@@ -109,26 +104,24 @@ Expected behavior: the test deliberately injects a forbidden latent column and t
 
 ## Data Availability Statement
 
-Use this statement only after the public repository exists:
-
-> The synthetic dataset generation code, benchmark configuration files, generated synthetic dataset, train/validation/test split files, label-scarcity split files, site-held-out split files, model-training scripts, threshold-selection scripts, evaluation scripts, result tables, and figure-generation artifacts are openly available at [GitHub repository URL], release [release tag or commit hash]. The dataset is fully synthetic and does not contain real industrial, personal, proprietary, or institution-owned operational data.
-
-## GenAI Disclosure
-
-During the preparation of this manuscript/study, the author used ChatGPT and Gemini for research planning, code drafting, manuscript structuring, and language refinement. The author reviewed and edited all outputs, verified the methods, results, and references, and takes full responsibility for the content of the publication.
-
-## Current Release Status
-
-This folder is intended to be released at:
+The synthetic dataset generation code, benchmark configuration files, generated synthetic dataset, train/validation/test split files, label-scarcity split files, site-held-out split files, model-training scripts, threshold-selection scripts, evaluation scripts, result tables, and figure-generation artifacts are openly available at:
 
 ```text
 https://github.com/purohit0208/synthetic-low-data-om-benchmark
 ```
 
-The final manuscript should cite release tag `v1.0.0-mdpi-ai-submission` or the exact commit hash.
+The dataset is fully synthetic and does not contain real industrial, personal, proprietary, or institution-owned operational data.
 
-The final public release is not complete until:
+## GenAI Disclosure
 
-- a release tag or commit hash is frozen;
-- the manuscript Data Availability Statement is updated with that URL/tag;
-- the corrected Markdown manuscript is regenerated into the journal template.
+During the preparation of this manuscript/study, the author used ChatGPT and Gemini for research planning, code drafting, manuscript structuring, and language refinement. The author reviewed and edited all outputs, verified the methods, results, and references, and takes full responsibility for the content of the publication.
+
+## Repository Status
+
+This public reproducibility package is hosted at:
+
+```text
+https://github.com/purohit0208/synthetic-low-data-om-benchmark
+```
+
+The repository intentionally contains benchmark code, generated synthetic data, split files, result tables, and figures. It does not contain the manuscript source, local Word exports, Consensus reports, downloaded scholarly PDFs, or local render-QA folders.

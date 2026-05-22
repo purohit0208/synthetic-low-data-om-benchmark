@@ -1,11 +1,11 @@
 cff-version: 1.2.0
-message: "If you use this synthetic benchmark, please cite the repository release and the associated manuscript."
+message: "If you use this synthetic benchmark, please cite the repository and the associated manuscript."
 title: "Synthetic Low-Data Industrial O&M Benchmark"
 authors:
   - family-names: "Purohit"
     given-names: "Parth"
 repository-code: "https://github.com/purohit0208/synthetic-low-data-om-benchmark"
-version: "v1.0.0-mdpi-ai-submission"
+version: "2026-05-22"
 date-released: "2026-05-22"
 license: "MIT"
 abstract: "A fully synthetic benchmark for AI-based industrial operation and maintenance decision support under label scarcity, noisy observations, imperfect technician reports, and cross-site domain shift."
