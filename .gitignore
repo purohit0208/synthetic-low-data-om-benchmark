@@ -29,12 +29,16 @@ models/
 # Do not publish Consensus reports, extracted report text, or downloaded papers.
 literature_review/
 
-# Manuscript source/build exports are kept local; this public repository is
-# only the benchmark code/data/results availability package.
-manuscript/
-
-# Local submission package and visual QA outputs
-submission/
+# Manuscript/submission artifacts are tracked when intentionally prepared.
+# Keep only transient render/extraction artifacts local.
+manuscript/__pycache__/
+manuscript/docx_images/
+manuscript/render_qa_*/
+manuscript/*.extracted.txt
+submission/**/pdf_check*/
+submission/**/render_*/
+submission/**/*.extracted.txt
+~$*.docx
 
 # Simulator internals are useful for local audit but are not model inputs.
 outputs/latent_database.parquet

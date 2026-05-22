@@ -29,6 +29,18 @@ src/
   routing.py         Validation-set threshold optimization
   evaluate.py        Experiments, metrics, tables, and figures
   explain.py         SHAP and TF-IDF coefficient utilities
+manuscript/
+  build_mdpi_submission.py
+  manuscript.docx
+submission/
+  mdpi_ai_2026_05_22/
+    FINAL_MANUSCRIPT_MDPI_AI.docx
+    COVER_LETTER_MDPI_AI.docx
+    SUBMISSION_METADATA.md
+    SUBMISSION_PACKAGE_CHECKLIST.md
+    figures_high_res/
+    figures_high_res.zip
+    supplementary/
 outputs/
   dataset.csv
   dataset.parquet
@@ -57,6 +69,34 @@ CITATION.cff
 Do not upload the local `literature_review/` folder to a public repository. It contains Consensus reports, extracted report text, and downloaded scholarly PDFs that are local review materials, not redistributable benchmark artifacts.
 
 The `.gitignore` file excludes those files, local caches, stale DOCX exports, and latent simulator internals that are not model inputs.
+
+## Manuscript and Submission Package
+
+The repository includes the current MDPI AI submission package under:
+
+```text
+submission/mdpi_ai_2026_05_22/
+```
+
+The final manuscript is:
+
+```text
+submission/mdpi_ai_2026_05_22/FINAL_MANUSCRIPT_MDPI_AI.docx
+```
+
+The same manuscript is also copied to:
+
+```text
+manuscript/manuscript.docx
+```
+
+The manuscript builder is:
+
+```text
+manuscript/build_mdpi_submission.py
+```
+
+The submitted references are grounded in the local literature-review paper set used during drafting. The `literature_review/` folder itself is intentionally not uploaded because it contains downloaded third-party PDFs and Consensus discovery reports.
 
 ## Environment
 
@@ -119,10 +159,10 @@ During the preparation of this manuscript/study, the author used ChatGPT and Gem
 
 ## Repository Status
 
-This public reproducibility package is hosted at:
+This public reproducibility and submission package is hosted at:
 
 ```text
 https://github.com/purohit0208/synthetic-low-data-om-benchmark
 ```
 
-The repository intentionally contains benchmark code, generated synthetic data, split files, result tables, and figures. It does not contain the manuscript source, local Word exports, Consensus reports, downloaded scholarly PDFs, or local render-QA folders.
+The repository intentionally contains benchmark code, generated synthetic data, split files, result tables, figures, and the current MDPI AI manuscript/submission package. It does not contain Consensus reports, downloaded scholarly PDFs, or local render-QA folders.
